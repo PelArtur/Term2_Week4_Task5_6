@@ -28,7 +28,6 @@ class Enemy(Character):
         for elem in equipment:
             if equipment[elem] in self.weakness:
                 battle_point += 1
-        print(flag, battle_point)
         if (battle_point == 1 and flag == 1) or (battle_point == 2 and flag < 3) or battle_point == 3:
             return True
         return False
@@ -43,6 +42,7 @@ class NPC(Character):
         self.required_item = []
         self.quest_done_conv = None
         self.reward = None
+        self.assortment = None
         super().__init__(name, tipe)
     
     def set_quest(self, quest):
@@ -63,11 +63,46 @@ class NPC(Character):
     def details(self):
         message = self.name + '\n' + '--------------------' + '\n' + self.description + '\nДоступні взаємодії:\n1. Поговорити\n2. Квест/поторгуватись'
         return message
+    
+class Merchant(Character):
+    def __init__(self, name, tipe) -> None:
+        self.buy_items = []
+        self.sell_items = []
+        super().__init__(name, tipe)
+    def available_items_for_buy(self):
+        if len(self.buy_items) == 0:
+            return None
+        message = 'Доступні предмети для купівлі:'
+        num = 1
+        for item in self.buy_items:
+            message += f'\n{num}. {item.name}: {item.price * -1} арденів'
+            num += 1
+        return message
+    def available_items_for_sell(self, backpack):
+        # if len(self.sell_items) == 0:
+        #     return None
+        message = 'Доступні предмети для продажу:'
+        num = 1
+        available_to_sell = []
+        for item in backpack:
+            if item in self.sell_items:
+                message += f'\n{num}. {item.name}: {item.price} арденів'
+                available_to_sell.append(item)
+                num += 1
+        if num == 1 or len(self.sell_items) == 0:
+            return None
+        print(available_to_sell)
+        return message, available_to_sell
+    def details(self):
+        message = self.name + '\n' + '--------------------' + '\n' + self.description + '\nДоступні взаємодії:\n1. Поговорити\n2. Поторгуватись'
+        return message
 
 class Items():
-    def __init__(self, name) -> None:
+    def __init__(self, name, is_sellable=False) -> None:
         self.name = name
         self.description = None
+        self.is_sellable = is_sellable
+        self.price = None
 
     def set_description(self, description):
         self.description = description
@@ -79,27 +114,21 @@ class Items():
         return self.name
 
 class Artifact(Items):
-    def __init__(self, name, rarity) -> None:
-        self.rarity = rarity
-        self_isbroken = False
-        self_bonus = None
-        super().__init__(name)
+    def __init__(self, name, is_sellable=False) -> None:
+        super().__init__(name, is_sellable)
 
 class Weapon(Items):
-    def __init__(self, name, damage) -> None:
-        self.damage = damage
-        super().__init__(name)
-    
-    def set_damage(self, damage: int):
-        self.damage = damage
+    def __init__(self, name, is_sellable=False) -> None:
+        super().__init__(name, is_sellable)
+
+class Arden():
+    def __init__(self, name, amount) -> None:
+        self.name = name
+        self.amount = amount
 
 class Armor(Items):
-    def __init__(self, name, protection) -> None:
-        self.protection = protection
-        super().__init__(name)
-    
-    def set_protection(self, protection):
-        self.protection = protection
+    def __init__(self, name, is_sellable=False) -> None:
+        super().__init__(name, is_sellable)
 
 class Scroll(Items):
     def __init__(self, name) -> None:
