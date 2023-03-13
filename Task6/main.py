@@ -1,7 +1,6 @@
 from game_objects import *
 from classes import Weapon, Armor, Artifact, NPC, Merchant
 current_location = aridel
-current_character = None
 backpack = []
 arden = 0
 equipment = {'Artifact': knowledge_eye, 'Weapon': sword, 'Armor': chain_mail}
