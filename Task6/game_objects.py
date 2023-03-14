@@ -13,7 +13,6 @@ oak = classes.Items('Дуб')
 horse_skin = classes.Items('Кінська шкіра')
 steel = classes.Items('Сталь')
 moon_tree_leaves = classes.Items('Листя місячного дерева')
-gost_mushrooms = classes.Items('Гриби-духи')
 forest_potions = classes.Items('Лісові зілля')
 glowing_butterfly = classes.Items('Нічний вогник')
 clay = classes.Items('Глина')
@@ -169,8 +168,8 @@ tarkan.converstation = "Моя зброя завжди готова до бою.
 попрощатись з життям, перш ніж я розправлю свої кулаки."
 grubokist.set_weakness([elves_blade, elegy_horn, light_mail])
 tarkan.set_weakness([elves_blade, elegy_horn, light_mail])
-grubokist.loot = [rock, goblin_head]
-tarkan.loot = [goblin_ear]
+grubokist.loot = [goblin_head, storm_staff]
+tarkan.loot = [goblin_ear, rock]
 
 bilka = classes.NPC('Білка', 'Охоронець поля Хортін')
 bilka.converstation = "Привіт, мій дорогий герой! Я Білка, і я рада вітати тебе в моїй домівці. Я \
@@ -264,7 +263,6 @@ deep_forest.set_description('Місце, де можна зустріти дик
 deep_forest.set_character(shepit)
 deep_forest.set_character(galunka)
 deep_forest.set_item(oak)
-deep_forest.set_item(gost_mushrooms)
 deep_forest.set_item(moon_tree_leaves)
 deep_forest.set_item(oil_moonlight)
 

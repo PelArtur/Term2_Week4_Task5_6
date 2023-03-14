@@ -23,6 +23,7 @@ while dead == False:
     text = input('\n> ').lower()
     if text == 'break':
         print('До зустрічі!\n:)')
+        is_win = None
         break
     if text.lower() == 'location' or text.lower() == 'loc':
         new_loc = choose_obj(current_location.linked_loc)
@@ -42,7 +43,8 @@ while dead == False:
             continue
         elif converstation_ == 'Lose':
             break
-        elif len(converstation_) == 2:
+        elif len(converstation_) == 2 and (converstation_[1] == 'Buy' or converstation_[1] == 'Sell'
+                                           ):
             if converstation_[0] is None:
                 continue
             if converstation_[1] == 'Buy':
@@ -123,7 +125,7 @@ while dead == False:
             while changing_equip:
                 print(available_equipment_message)
                 new_equip = choose_obj(available_equipment)
-                if new_equip == None:
+                if new_equip is None:
                     break
                 for equip_ in equipment:
                     if type(equipment[equip_]) == type(new_equip):
@@ -134,12 +136,21 @@ while dead == False:
 
     elif text == 'balance':
         print(f'Ваш поточний грошовий баланс складає {arden} арденів')
-
+    elif text == 'info':
+        print('Гобліни\nГобліни є прудкими, тому проти них буде ефективною легка броня, \
+яка дозволяє бути маневреним, а також невеликі клинки\nХорошим екіпіруванням буде: Клинок \
+Ельфів, Ріг Елегії та Легка кольчуга\n\nОрки\nОрки є величезними і дуже сильним створіннями, \
+тому проти них варто застосовувати дуже міцну броню і меч, який зможе нанести їм шкоди. Також \
+вони бояться дуже яскравого світла.\nХорошим екіпіруванням буде: Меч з дамаску, Ліхтар, \
+Пластинчаста броня.\n\nПірати\nПірати велику частину свого життя проводять на кораблі, тому \
+варто використати таку зброя, яка могла б керувати водою, створювати хвилі, що допоможе з \
+легкістю зруйнувати їх корабель.\nХорошим екіпіруванням буде: Серце шторму, Посох бурі, Плащ бурі')
     else:
         print('Ви ввели неправильне значення або використали зайвий пробіл')
 
 
 if is_win:
-    print('Вітаю, героє. Ви змогли отримати Божественний артефакт і спасти цей світ від небезпечного прокляття!\nПроте це ще не кінець...')
-else:
+    print('Вітаю, героє. Ви змогли отримати Божественний артефакт і спасти цей світ від \
+небезпечного прокляття!\nПроте це ще не кінець...')
+elif not is_win and is_win is not None:
     print('На жаль, ви не змогли отримати Божественний артефакт і світ накрила вічна темрява...')
