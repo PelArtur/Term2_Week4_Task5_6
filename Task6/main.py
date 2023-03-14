@@ -116,7 +116,7 @@ while dead == False:
             for elem in backpack:
                 if isinstance(elem, Weapon) or isinstance(elem, Armor) or (isinstance(
                     elem, Artifact)):
-                    available_equipment_message += f'\n{count}. {type(elem)}: {elem.name}'
+                    available_equipment_message += f'\n{count}. {elem.name}'
                     available_equipment.append(elem)
                     count += 1
             if len(available_equipment) == 0:
